@@ -8,8 +8,8 @@ import javax.swing.event.*;
 public class VisualizerFrame extends JFrame{
 
     private final int MAX_SIZE = 500;
-    private final int MIN_SIZE = 5;
-    private final int DEFAULT_SIZE = 200;
+    private final int MIN_SIZE = 10;
+    private final int DEFAULT_SIZE = 250;
     private final String[] sortAlgs = {"Bubble", "Selection", "Insertion", "Merge", "Quick"};
 
     private int sizeModifier;
@@ -19,11 +19,12 @@ public class VisualizerFrame extends JFrame{
     private JPanel buttonWrapper;
     private JPanel[] rectangles;
     private JButton startButton;
+    private JButton shuffleButton;
     private JComboBox<String> dropDownMenu;
     private JSlider sizeSlider;
     private JLabel sizeValue;
     private GridBagConstraints constraints;
-    private JCheckBox sorted;
+    private JCheckBox incremental;
 
     public VisualizerFrame(){
         super("Sorting Visualization");
@@ -31,12 +32,14 @@ public class VisualizerFrame extends JFrame{
         wrapper = new JPanel();
         arrayWrapper = new JPanel();
         buttonWrapper = new JPanel();
-        startButton = new JButton();
+        startButton = new JButton("Sort");
+        shuffleButton = new JButton("Shuffle");
         dropDownMenu = new JComboBox<String>();
         sizeSlider = new JSlider(MIN_SIZE, MAX_SIZE, DEFAULT_SIZE);
-        sizeValue = new JLabel("Size: 200");
+        sizeValue = new JLabel("Size: " + DEFAULT_SIZE);
         constraints = new GridBagConstraints();
-        sorted = new JCheckBox("Sorted Values");
+        incremental = new JCheckBox("Incremental Array");
+        rectangles = new JPanel[SortingVisualization.sizeOfArray];
 
         for(var s : sortAlgs){
             dropDownMenu.addItem(s);
@@ -53,9 +56,14 @@ public class VisualizerFrame extends JFrame{
                 SortingVisualization.startSorting((String)dropDownMenu.getSelectedItem());
             }
         });
-        sorted.addActionListener(new ActionListener(){
+        shuffleButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                SortingVisualization.sorted = sorted.isSelected();
+                SortingVisualization.resetArray();
+            }
+        });
+        incremental.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                SortingVisualization.incremental = incremental.isSelected();
             }
         });
         sizeSlider.setMinorTickSpacing(10);
@@ -70,11 +78,12 @@ public class VisualizerFrame extends JFrame{
             }
         });
 
-        buttonWrapper.add(sorted);
+        buttonWrapper.add(incremental);
         buttonWrapper.add(sizeValue);
         buttonWrapper.add(sizeSlider);
-        buttonWrapper.add(startButton);
         buttonWrapper.add(dropDownMenu);
+        buttonWrapper.add(shuffleButton);
+        buttonWrapper.add(startButton);
 
         wrapper.add(buttonWrapper, BorderLayout.NORTH);
         wrapper.add(arrayWrapper);

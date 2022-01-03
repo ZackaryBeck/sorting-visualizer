@@ -29,5 +29,6 @@ public class SelectionSort implements Runnable{
              array[minIndex] = array[i];
              array[i] = temp;
          }
+         SortingVisualization.isSorting = false;
      }
 }

@@ -27,5 +27,6 @@ public class InsertionSort implements Runnable{
             }
             array[j + 1] = key;
         }
+        SortingVisualization.isSorting = false;
     }
 }

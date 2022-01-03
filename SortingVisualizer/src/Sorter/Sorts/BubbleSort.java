@@ -27,5 +27,6 @@ public class BubbleSort implements Runnable{
                 }
             }
         }
+        SortingVisualization.isSorting = false;
     }
 }

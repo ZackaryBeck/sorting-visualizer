@@ -15,10 +15,11 @@ public class SortingVisualization {
     public static int sizeOfArray = 200;
     public static int sleep = 5;
     public static int blockWidth;
-    public static boolean sorted = false;
+    public static boolean incremental = false;
     public static void main(String[] args) throws Exception {
         frame = new VisualizerFrame();
-        
+        resetArray();
+        frame.setLocationRelativeTo(null);
     }
     public static void resetArray(){
         // If we are currently sorting the array, isSorting will be true and we don't want to reset the array while sorting
@@ -27,14 +28,14 @@ public class SortingVisualization {
         blockWidth = (int)Math.max(Math.floor(500 / sizeOfArray), 1);
 
         for(int i = 0; i < array.length; i++){
-            if(sorted){
+            if(incremental){
                 array[i] = i;
             } else {
                 array[i] = (int)(sizeOfArray * Math.random());
             }
         }
 
-        if(sorted){ // randomizes the array if it was already sorted
+        if(incremental){ // randomizes the array if incremental values were used
             ArrayList<Integer> shuffleArray = new ArrayList<>();
             for(int i = 0; i < array.length; i++){
                 shuffleArray.add(array[i]);
