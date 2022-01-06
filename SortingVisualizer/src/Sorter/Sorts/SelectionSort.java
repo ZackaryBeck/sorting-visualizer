@@ -20,7 +20,7 @@ public class SelectionSort implements Runnable{
                 }
                 frame.reDrawArray(array, minIndex, j - 1);
                 try{
-                    Thread.sleep(SortingVisualization.sleep);
+                    Thread.sleep(SortingVisualization.SLEEP);
                 } catch (InterruptedException e){
                     e.printStackTrace();
                 }

@@ -43,12 +43,11 @@ public class MergeSort implements Runnable{
             index++;
             SortingVisualization.frame.reDrawArray(array, leftEnd, leftIndex, rightStart);
             try{
-                Thread.sleep(SortingVisualization.sleep);
+                Thread.sleep(SortingVisualization.SLEEP);
             } catch (InterruptedException e){
                 e.printStackTrace();
             }
         }
-        SortingVisualization.frame.reDrawArray(array);
         System.arraycopy(array, leftIndex, temp, index, leftEnd - leftIndex + 1);
         System.arraycopy(array, rightIndex, temp, index, right - rightIndex + 1);
         System.arraycopy(temp, left, array, left, size);

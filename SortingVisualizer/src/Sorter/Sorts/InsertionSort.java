@@ -21,7 +21,7 @@ public class InsertionSort implements Runnable{
             }
             frame.reDrawArray(array, j, key);
             try{
-                Thread.sleep(SortingVisualization.sleep);
+                Thread.sleep(5);
             } catch (InterruptedException e){
                 e.printStackTrace();
             }

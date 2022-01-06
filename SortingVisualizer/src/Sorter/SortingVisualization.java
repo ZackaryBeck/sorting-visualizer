@@ -6,6 +6,8 @@ import java.util.Collections;
 import Sorter.Sorts.*;
 
 public class SortingVisualization {
+
+    public static final int SLEEP = 5;
     
     private static Thread sortingThread;
 
@@ -13,13 +15,21 @@ public class SortingVisualization {
     public static Integer[] array;
     public static boolean isSorting = false;
     public static int sizeOfArray = 200;
-    public static int sleep = 5;
     public static int blockWidth;
     public static boolean incremental = false;
     public static void main(String[] args) throws Exception {
+        setArray();
         frame = new VisualizerFrame();
         resetArray();
-        frame.setLocationRelativeTo(null);
+        frame.preDrawArray(array);
+    }
+    public static void setArray(){
+        array = new Integer[sizeOfArray];
+        blockWidth = (int)Math.max(Math.floor(500 / sizeOfArray), 1);
+
+        for(int i = 0; i < array.length; i++){
+            array[i] = (int)(sizeOfArray * Math.random()) + 1;
+        }
     }
     public static void resetArray(){
         // If we are currently sorting the array, isSorting will be true and we don't want to reset the array while sorting
@@ -29,9 +39,9 @@ public class SortingVisualization {
 
         for(int i = 0; i < array.length; i++){
             if(incremental){
-                array[i] = i;
+                array[i] = i + 1;
             } else {
-                array[i] = (int)(sizeOfArray * Math.random());
+                array[i] = (int)(sizeOfArray * Math.random()) + 1;
             }
         }
 

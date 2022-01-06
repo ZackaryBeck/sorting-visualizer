@@ -21,7 +21,7 @@ public class BubbleSort implements Runnable{
                 }
                 frame.reDrawArray(array, j, j + 1);
                 try{
-                    Thread.sleep(SortingVisualization.sleep);
+                    Thread.sleep(SortingVisualization.SLEEP);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

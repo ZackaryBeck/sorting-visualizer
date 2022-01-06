@@ -20,6 +20,7 @@ public class VisualizerFrame extends JFrame{
     private JPanel[] rectangles;
     private JButton startButton;
     private JButton shuffleButton;
+    private JButton showArrayButton;
     private JComboBox<String> dropDownMenu;
     private JSlider sizeSlider;
     private JLabel sizeValue;
@@ -34,6 +35,7 @@ public class VisualizerFrame extends JFrame{
         buttonWrapper = new JPanel();
         startButton = new JButton("Sort");
         shuffleButton = new JButton("Shuffle");
+        showArrayButton = new JButton("Show Array");
         dropDownMenu = new JComboBox<String>();
         sizeSlider = new JSlider(MIN_SIZE, MAX_SIZE, DEFAULT_SIZE);
         sizeValue = new JLabel("Size: " + DEFAULT_SIZE);
@@ -52,25 +54,38 @@ public class VisualizerFrame extends JFrame{
         constraints.anchor = GridBagConstraints.SOUTH;
 
         startButton.addActionListener(new ActionListener(){
+            @Override
             public void actionPerformed(ActionEvent e){
                 SortingVisualization.startSorting((String)dropDownMenu.getSelectedItem());
             }
         });
         shuffleButton.addActionListener(new ActionListener(){
+            @Override
             public void actionPerformed(ActionEvent e){
                 SortingVisualization.resetArray();
             }
         });
+        showArrayButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                SortingVisualization.resetArray();
+                
+                JButton source = (JButton)e.getSource();
+                source.setEnabled(false);
+            }
+        });
         incremental.addActionListener(new ActionListener(){
+            @Override
             public void actionPerformed(ActionEvent e){
                 SortingVisualization.incremental = incremental.isSelected();
             }
         });
         sizeSlider.setMinorTickSpacing(10);
-        sizeSlider.setMajorTickSpacing(100);
+        sizeSlider.setMajorTickSpacing(240);
         sizeSlider.setPaintTicks(true);
 
         sizeSlider.addChangeListener(new ChangeListener(){
+            @Override
             public void stateChanged(ChangeEvent arg0){
                 sizeValue.setText("Size: " + Integer.toString(sizeSlider.getValue()) + " values");
                 validate();
@@ -82,6 +97,7 @@ public class VisualizerFrame extends JFrame{
         buttonWrapper.add(sizeValue);
         buttonWrapper.add(sizeSlider);
         buttonWrapper.add(dropDownMenu);
+        buttonWrapper.add(showArrayButton);
         buttonWrapper.add(shuffleButton);
         buttonWrapper.add(startButton);
 
@@ -116,7 +132,6 @@ public class VisualizerFrame extends JFrame{
         setLocationRelativeTo(null);
 
     }
-
     public void preDrawArray(Integer[] panels){
         rectangles = new JPanel[SortingVisualization.sizeOfArray];
         arrayWrapper.removeAll();
